@@ -1,7 +1,5 @@
 const Hotel = require("../../../../models/Hotel");
-const Partner = require("../../../../models/Partner");
 const AppError = require("../../../../utils/appError");
-
 const catchAsync = require("../../../../utils/catchAsync");
 
 exports.listHotel = catchAsync(async (req, res, next) => {

@@ -6,6 +6,10 @@ const { requiredFields } = require("../../_util/reqBodyValidator");
 const Partner = require("../../../models/Partner");
 const lisitingController = require("./controller/listingController");
 
+/* room routes */
+const roomRouter = require("./roomRoutes/index");
+router.use("/room", roomRouter);
+
 /* list hotel */
 router.post(
   "/",
@@ -34,25 +38,5 @@ router.patch("/:id", protect(Partner), lisitingController.updateListedHotel);
 
 /* delete hotel */
 router.delete("/:id", protect(Partner), lisitingController.deleteListedHotel);
-
-/* create a room type */
-
-/* get all room type */
-
-/* get one room type */
-
-/* update room type */
-
-/* delete room type */
-
-/* create a room */
-
-/* get all a rooms */
-
-/* get a room */
-
-/* update a room */
-
-/* delete a room */
 
 module.exports = router;
