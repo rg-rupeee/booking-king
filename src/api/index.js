@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const userRoutes = require("./user/index");
-router.use("/user", userRoutes);
+const userRouter = require("./userRoutes/index");
+router.use("/user", userRouter);
 
-const partnerRoutes = require("./partner/index");
-router.use("/partner", partnerRoutes);
+const partnerRouter = require("./partnerRoutes/index");
+router.use("/partner", partnerRouter);
+
+const hotelRouter = require("./hotelRoutes/index");
+router.use("/hotel", hotelRouter);
 
 router.use("/test", (req, res, next) => {
   res.json({

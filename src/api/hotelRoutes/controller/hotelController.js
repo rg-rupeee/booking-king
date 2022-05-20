@@ -2,7 +2,11 @@ const factory = require("../../_util/handlerFactory");
 const catchAsync = require("../../../utils/catchAsync");
 const Hotel = require("../../../models/Hotel");
 
-exports.getAllHotels = factory.getAll(Hotel, "hotel");
+exports.getAllHotels = factory.getAllwithQuery(
+  Hotel,
+  { is_published: true },
+  "hotel"
+);
 
 exports.getHotel = factory.getOne(Hotel, "hotel");
 
