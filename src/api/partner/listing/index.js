@@ -4,10 +4,10 @@ const router = express.Router();
 const { protect } = require("../../_util/authMiddlewares");
 const { requiredFields } = require("../../_util/reqBodyValidator");
 const Partner = require("../../../models/Partner");
-const lisitingController = require("./controller/listingController");
+const lisitingController = require("./_controller/listingController");
 
 /* room routes */
-const roomRouter = require("./roomRoutes/index");
+const roomRouter = require("./room/index");
 router.use("/room", roomRouter);
 
 /* list hotel */

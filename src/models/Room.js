@@ -1,16 +1,36 @@
 const mongoose = require("mongoose");
 
-/* It will be the internal data structure - used to allocate slots */
 const roomSchema = new mongoose.Schema({
   hotelId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Hotel",
     required: true,
   },
-  roomType: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "RoomType",
+  name: {
+    type: String,
+    trim: true,
     required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  facilities: [
+    {
+      type: String,
+    },
+  ],
+  maxPerson: {
+    type: String,
+    default: 2,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  noRooms: {
+    type: Number,
+    default: 1,
   },
 });
 

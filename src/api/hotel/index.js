@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const hotelController = require("./controller/hotelController");
+const hotelController = require("./_controller/hotelController");
 
 /* get all hotels */
 router.get("/", hotelController.getAllHotels);
