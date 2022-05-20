@@ -1,15 +1,39 @@
 const express = require("express");
 const router = express.Router();
 
-/* list hotel */
+const { protect } = require("../../_util/authMiddlewares");
+const { requiredFields } = require("../../_util/reqBodyValidator");
+const Partner = require("../../../models/Partner");
+const lisitingController = require("./controller/listingController");
 
-/* get all listed hotels */
+/* list hotel */
+router.post(
+  "/",
+  protect(Partner),
+  requiredFields(
+    "name",
+    "description",
+    "country",
+    "state",
+    "city",
+    "address",
+    "coordinates",
+    "images"
+  ),
+  lisitingController.listHotel
+);
+
+/* get listed hotels */
+router.get("/", protect(Partner), lisitingController.getListedHotels);
 
 /* get listed hotel */
+router.get("/:id", protect(Partner), lisitingController.getListedHotel);
 
 /* update hotel details */
+router.patch("/:id", protect(Partner), lisitingController.updateListedHotel);
 
 /* delete hotel */
+router.delete("/:id", protect(Partner), lisitingController.deleteListedHotel);
 
 /* create a room type */
 
@@ -29,6 +53,6 @@ const router = express.Router();
 
 /* update a room */
 
-/* delte a room */
+/* delete a room */
 
 module.exports = router;

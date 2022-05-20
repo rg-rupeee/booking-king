@@ -14,9 +14,8 @@ exports.deleteOne = (Model, entity) =>
       return next(new AppError(`No ${entity} found with that ID`, 404));
     }
 
-    res.status(200).json({
+    res.status(204).json({
       success: true,
-      data: null,
     });
   });
 

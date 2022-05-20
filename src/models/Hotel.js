@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
 const hotelSchema = new mongoose.Schema({
+  partnerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Partner",
+    required: true,
+  },
   name: {
     type: String,
     trim: true,
@@ -47,7 +52,7 @@ const hotelSchema = new mongoose.Schema({
     },
     coordinates: [Number],
   },
-  Images: [String],
+  images: [String],
   avgRating: {
     type: Number,
     default: 4.5,
@@ -68,6 +73,10 @@ const hotelSchema = new mongoose.Schema({
       },
     },
   ],
+  is_published: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Hotel = mongoose.model("Hotel", hotelSchema);
