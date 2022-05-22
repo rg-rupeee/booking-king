@@ -14,9 +14,8 @@ exports.deleteOne = (Model, entity) =>
       return next(new AppError(`No ${entity} found with that ID`, 404));
     }
 
-    res.status(200).json({
+    res.status(204).json({
       success: true,
-      data: null,
     });
   });
 
@@ -86,6 +85,28 @@ exports.getAll = (Model, entity) =>
     }
 
     const features = new APIFeatures(Model.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    const doc = await features.query;
+
+    const response = {
+      success: true,
+      results: doc.length,
+    };
+    response[entity] = doc;
+    res.status(200).json(response);
+  });
+
+exports.getAllwithQuery = (Model, query, entity) =>
+  catchAsync(async (req, res, next) => {
+    if (!entity) {
+      entity = "document";
+    }
+
+    const features = new APIFeatures(Model.find(query), req.query)
       .filter()
       .sort()
       .limitFields()

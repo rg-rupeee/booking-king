@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const authController = require("./controller/authController");
+const authController = require("./_controller/authController");
 const { requiredFields } = require("../../_util/reqBodyValidator");
 
 router.post(
