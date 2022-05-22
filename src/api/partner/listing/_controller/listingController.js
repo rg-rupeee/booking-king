@@ -2,6 +2,19 @@ const Hotel = require("../../../../models/Hotel");
 const AppError = require("../../../../utils/appError");
 const catchAsync = require("../../../../utils/catchAsync");
 
+const validateHotel = async (hotel, userId) => {
+  if (!hotel) {
+    throw new AppError("No hotel found with that id", 404);
+  }
+
+  if (!hotel.partnerId.equals(userId)) {
+    throw new AppError(
+      "Forbidden! cannot access hotel not belonging to this user",
+      403
+    );
+  }
+};
+
 exports.listHotel = catchAsync(async (req, res, next) => {
   const hotelData = req.body;
 
@@ -25,22 +38,10 @@ exports.getListedHotels = catchAsync(async (req, res, next) => {
 });
 
 exports.getListedHotel = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
+  const { hotelId } = req.params;
 
-  const hotel = await Hotel.findOne({ _id: id });
-
-  if (!hotel) {
-    return next(new AppError("No hotel found with that id", 404));
-  }
-
-  if (!hotel.partnerId.equals(req.user.id)) {
-    return next(
-      new AppError(
-        "Forbidden! cannot access hotel not belonging to this user",
-        403
-      )
-    );
-  }
+  const hotel = await Hotel.findOne({ _id: hotelId });
+  await validateHotel(hotel, req.user.id);
 
   return res.json({
     success: true,
@@ -49,22 +50,10 @@ exports.getListedHotel = catchAsync(async (req, res, next) => {
 });
 
 exports.updateListedHotel = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
+  const { hotelId } = req.params;
 
-  const hotel = await Hotel.findOne({ _id: id });
-
-  if (!hotel) {
-    return next(new AppError("No hotel found with that id", 404));
-  }
-
-  if (!hotel.partnerId.equals(req.user.id)) {
-    return next(
-      new AppError(
-        "Forbidden! cannot access hotel not belonging to this user",
-        403
-      )
-    );
-  }
+  const hotel = await Hotel.findOne({ _id: hotelId });
+  await validateHotel(hotel, req.user.id);
 
   const updatedHotel = await Hotel.findOneAndUpdate(
     { _id: hotel._id },
@@ -79,22 +68,10 @@ exports.updateListedHotel = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteListedHotel = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
+  const { hotelId } = req.params;
 
-  const hotel = await Hotel.findOne({ _id: id });
-
-  if (!hotel) {
-    return next(new AppError("No hotel found with that id", 404));
-  }
-
-  if (!hotel.partnerId.equals(req.user.id)) {
-    return next(
-      new AppError(
-        "Forbidden! cannot access hotel not belonging to this user",
-        403
-      )
-    );
-  }
+  const hotel = await Hotel.findOne({ _id: hotelId });
+  await validateHotel(hotel, req.user.id);
 
   await Hotel.findOneAndDelete({ _id: hotel._id });
 
@@ -102,5 +79,3 @@ exports.deleteListedHotel = catchAsync(async (req, res, next) => {
     success: true,
   });
 });
-
-exports.createRoomType = catchAsync(async (req, res, next) => {});

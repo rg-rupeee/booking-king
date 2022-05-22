@@ -5,10 +5,7 @@ const { protect } = require("../../_util/authMiddlewares");
 const { requiredFields } = require("../../_util/reqBodyValidator");
 const Partner = require("../../../models/Partner");
 const lisitingController = require("./_controller/listingController");
-
-/* room routes */
-const roomRouter = require("./room/index");
-router.use("/room", roomRouter);
+const roomController = require("./_controller/roomController");
 
 /* list hotel */
 router.post(
@@ -31,12 +28,48 @@ router.post(
 router.get("/", protect(Partner), lisitingController.getListedHotels);
 
 /* get listed hotel */
-router.get("/:id", protect(Partner), lisitingController.getListedHotel);
+router.get("/:hotelId", protect(Partner), lisitingController.getListedHotel);
 
 /* update hotel details */
-router.patch("/:id", protect(Partner), lisitingController.updateListedHotel);
+router.patch(
+  "/:hotelId",
+  protect(Partner),
+  lisitingController.updateListedHotel
+);
 
 /* delete hotel */
-router.delete("/:id", protect(Partner), lisitingController.deleteListedHotel);
+router.delete(
+  "/:hotelId",
+  protect(Partner),
+  lisitingController.deleteListedHotel
+);
+
+/* create room */
+router.post(
+  "/:hotelId/room",
+  protect(Partner),
+  requiredFields("name", "description", "price"),
+  roomController.createRoom
+);
+
+/* get all hotel rooms */
+router.get("/:hotelId/room", protect(Partner), roomController.getAllRooms);
+
+/* get one room */
+router.get("/:hotelId/room/:roomId", protect(Partner), roomController.getRoom);
+
+/* update room */
+router.patch(
+  "/:hotelId/room/:roomId",
+  protect(Partner),
+  roomController.updateRoom
+);
+
+/* delete room */
+router.delete(
+  "/:hotelId/room/:roomId",
+  protect(Partner),
+  roomController.deleteRoom
+);
 
 module.exports = router;

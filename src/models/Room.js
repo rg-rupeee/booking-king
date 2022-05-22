@@ -6,6 +6,11 @@ const roomSchema = new mongoose.Schema({
     ref: "Hotel",
     required: true,
   },
+  partnerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Partner",
+    required: true,
+  },
   name: {
     type: String,
     trim: true,
@@ -27,6 +32,11 @@ const roomSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true,
+  },
+  priceCurrency: {
+    type: String,
+    enum: ["Rs", "$"],
+    default: "Rs",
   },
   noRooms: {
     type: Number,
