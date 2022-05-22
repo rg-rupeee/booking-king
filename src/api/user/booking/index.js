@@ -9,7 +9,5 @@ const router = express.Router();
 
 /* cancel a booking */
 
-/*  */
-
 
 module.exports = router;
