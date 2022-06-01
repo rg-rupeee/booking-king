@@ -11,7 +11,11 @@ router.get("/", hotelController.getAllHotels);
 router.get("/nearby/:lat/:long", hotelController.getNearbyHotels);
 
 /* search hotels - regex */
-router.post("/search", hotelController.searchHotels);
+router.post(
+  "/search",
+  requiredFields("searchKey"),
+  hotelController.searchHotels
+);
 
 /* get single hotel */
 router.get("/:id", hotelController.getHotel);

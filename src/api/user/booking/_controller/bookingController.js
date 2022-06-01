@@ -46,7 +46,7 @@ const validateRoomAvailablity = async (fromDate, toDate, hotelId, rooms) => {
         throw new AppError(
           `Only ${room.noRooms - roomSlot.length} rooms with roomId: ${
             room.roomId
-          } available`,
+          } available on Date ${date}`,
           400
         );
       }

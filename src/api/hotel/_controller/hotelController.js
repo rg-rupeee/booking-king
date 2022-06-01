@@ -3,6 +3,7 @@ const catchAsync = require("../../../utils/catchAsync");
 const Hotel = require("../../../models/Hotel");
 const Room = require("../../../models/Room");
 const AppError = require("../../../utils/appError");
+const APIFeatures = require("../../_util/apiFeatures");
 
 exports.getAllHotels = factory.getAllwithQuery(
   Hotel,
@@ -58,7 +59,9 @@ exports.searchHotels = catchAsync(async (req, res, next) => {
 exports.getHotelRooms = catchAsync(async (req, res, next) => {
   const { hotelId } = req.params;
 
-  const hotel = await Hotel.findOne({ _id: hotelId }).select("name");
+  const hotel = await Hotel.findOne({ _id: hotelId }).select(
+    "name is_published"
+  );
 
   if (!hotel) {
     return next(new AppError("No hotel found with that id", 404));
