@@ -7,7 +7,6 @@ const Room = require("../../../../models/Room");
 const RoomSlotsBooking = require("../../../../models/RoomSlotsBooking");
 
 const validateBooking = async (booking, userId) => {
-  console.log(booking);
   if (!booking) {
     throw new AppError("No booking found with that id", 404);
   }
