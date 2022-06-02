@@ -7,6 +7,7 @@ const Room = require("../../../../models/Room");
 const RoomSlotsBooking = require("../../../../models/RoomSlotsBooking");
 
 const validateBooking = async (booking, userId) => {
+  console.log(booking);
   if (!booking) {
     throw new AppError("No booking found with that id", 404);
   }
@@ -107,6 +108,13 @@ exports.getAllBookings = catchAsync(async (req, res, next) => {
 
 exports.getBookingById = catchAsync(async (req, res, next) => {
   const { bookingId } = req.params;
+
+  if (req.query && req.query.fields) {
+    const fields = req.query.fields.split(",");
+    if (!fields.includes("userId")) {
+      req.query.fields = req.query.fields + ",userId";
+    }
+  }
 
   const features = new apiFeatures(
     Booking.findOne({ _id: bookingId }),
