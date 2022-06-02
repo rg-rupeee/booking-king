@@ -57,11 +57,11 @@ exports.emailSignup = (Model) =>
 
     const newUser = await Model.create({ name, email, password });
 
-    const to = {
-      email,
-      name,
-    };
-    await sendMailViaTemplate(to, 2);
+    await sendMail(
+      { name, email },
+      "Welcome to Booking King",
+      `<h3>Welcome ${name}!</h3> <div><br> <b>Hope you have wonderful Booking here</b></div>`
+    );
 
     createSendToken(newUser, 201, req, res);
   });

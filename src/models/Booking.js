@@ -25,12 +25,12 @@ const BookingSchema = new mongoose.Schema({
     },
   ],
   fromDate: {
-    type: mongoose.Types.ObjectId,
+    type: Date,
     ref: "User",
     required: true,
   },
   toDate: {
-    type: mongoose.Types.ObjectId,
+    type: Date,
     ref: "User",
     required: true,
   },
@@ -49,6 +49,6 @@ const BookingSchema = new mongoose.Schema({
   },
 });
 
-const Booking = mongoose.model("BookingSchema", BookingSchema);
+const Booking = mongoose.model("Booking", BookingSchema);
 
 module.exports = Booking;

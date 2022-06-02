@@ -16,7 +16,7 @@ router.get("/:bookingId", protect(User), bookingController.getBookingById);
 router.post(
   "/",
   protect(User),
-  requiredFields("fromDate", "toDate", "rooms"),
+  requiredFields("fromDate", "toDate", "rooms", "hotelId"),
   bookingController.createBooking
 );
 

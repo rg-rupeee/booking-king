@@ -23,7 +23,7 @@ exports.getNearbyHotels = catchAsync(async (req, res, next) => {
           type: "Point",
           coordinates: [long, lat],
         },
-        $maxDistance: 500000,
+        $maxDistance: 5000,
       },
     },
   });

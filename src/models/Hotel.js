@@ -79,6 +79,8 @@ const hotelSchema = new mongoose.Schema({
   },
 });
 
+hotelSchema.index({ coordinates: "2dsphere" });
+
 const Hotel = mongoose.model("Hotel", hotelSchema);
 
 module.exports = Hotel;
