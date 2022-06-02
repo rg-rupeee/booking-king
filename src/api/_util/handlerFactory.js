@@ -64,7 +64,10 @@ exports.getOne = (Model, entity, popOptions) =>
 
     let query = Model.findById(req.params.id);
     if (popOptions) query = query.populate(popOptions);
-    const doc = await query;
+
+    const features = new APIFeatures(query, req.query).limitFields();
+
+    const doc = await features.query;
 
     if (!doc) {
       return next(new AppError(`No ${entity} found with that ID`, 404));
