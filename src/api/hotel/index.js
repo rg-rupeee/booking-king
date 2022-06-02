@@ -4,8 +4,8 @@ const router = express.Router();
 const hotelController = require("./_controller/hotelController");
 const { requiredFields } = require("./../_util/reqBodyValidator");
 
-/* get all hotels */
-router.get("/", hotelController.getAllHotels);
+const reviewRouter = require("./review/index");
+router.use("/:hotelId/reviews", reviewRouter);
 
 /* get nearby hotels */
 router.get("/nearby/:lat/:long", hotelController.getNearbyHotels);
@@ -29,5 +29,8 @@ router.get(
   requiredFields("date"),
   hotelController.getHotelRoomsAvailablity
 );
+
+/* get all hotels */
+router.get("/", hotelController.getAllHotels);
 
 module.exports = router;
