@@ -16,6 +16,8 @@
   "author": "Rupesh Garhwal <rupeshgarhwal3920@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@sentry/node": "^7.0.0",
+    "@sentry/tracing": "^7.0.0",
     "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
     "cloudinary": "^1.29.0",
