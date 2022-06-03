@@ -1,4 +1,5 @@
 const AppError = require("./appError");
+const Sentry = require("@sentry/node");
 
 const handleCastErrorDB = (err) => {
   const message = `Cast Error! Invalid Value ${err.path}: ${err.value}.`;
@@ -71,5 +72,6 @@ module.exports = (err, req, res, next) => {
 
   if (error.name === "TokenExpiredError") error = handleJWTExpiredError();
 
+  Sentry.captureException(error);
   sendError(error, req, res);
 };
